@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 const Home = lazy(() => import('./features/Home/Home'));
 const News = lazy(() => import('./features/News/News'));
@@ -35,6 +36,7 @@ function App() {
 					}
 				/>
 			</Routes>
+			<Footer />
 		</BrowserRouter>
 	);
 }

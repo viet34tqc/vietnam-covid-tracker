@@ -8,10 +8,8 @@ import ProvinceSelectButton from './components/ProvinceSelectButton';
 function formatCaseData(data, province) {
 	// Use item instead of case because `case` is a keyword in JS
 	return data.map(item => {
-		const date =
-			item.x.slice(8) + '/' + item.x.slice(5, 7) + '/' + item.x.slice(0, 4);
 		return {
-			date,
+			date: item.x.slice(8) + '/' + item.x.slice(5, 7) + '/' + item.x.slice(0, 4),
 			case: province !== 'vn' ? item.total : item.y,
 		};
 	});

@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import MobileNav from '../MobileNav/MobileNav';
 
 const Footer = () => {
-  return (
-    <div>Footer</div>
-  )
-}
+	return (
+		<>
+			<footer>Copyright &copy; {new Date().getFullYear()}</footer>
+			<MobileNav />
+		</>
+	);
+};
 
-export default Footer
+export default Footer;

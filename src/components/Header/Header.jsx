@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Nav from '../Nav/Nav';
 
 const Header = () => {
 	return (
-		<nav>
-			<Link to="/">Số liệu Covid-19</Link>
-			<Link to="/vaccine">Số liệu Vaccine</Link>
-			<Link to="/news">Tin tức</Link>
-		</nav>
+		<div className="flex justify-between items-center p-4 shadow-md">
+			<strong>
+				<Link to="/">Vietnam Corona Tracker</Link>
+			</strong>
+			<Nav />
+			<button>Toggle Theme</button>
+		</div>
 	);
 };
 

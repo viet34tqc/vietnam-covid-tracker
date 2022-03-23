@@ -30,6 +30,7 @@ const Summary = () => {
 	const { totalConfirmed, totalDeaths, totalRecovered } = data;
 	return (
 		<>
+			<h1></h1>
 			<Statistics data={data} />
 			<SummaryChart
 				data={[totalConfirmed, totalDeaths]}

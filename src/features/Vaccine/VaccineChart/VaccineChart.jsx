@@ -33,9 +33,11 @@ const formatVaccineData = data => {
 	return data.map(item => {
 		return {
 			date:
-				item.date.toString().slice(8, 10) +
+				item.date.slice(8) +
 				'/' +
-				item.date.toString().slice(5, 7),
+				item.date.slice(5, 7) +
+				'/' +
+				item.date.slice(0, 4),
 			dose2: item['2Dose'],
 			dose3: item['3Dose'],
 		};
