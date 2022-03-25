@@ -30,16 +30,16 @@ const Summary = () => {
 	const { totalConfirmed, totalDeaths, totalRecovered } = data;
 	return (
 		<div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:grid-cols-[2fr_1fr_1fr] gap-4 mb-10">
-			<div className="col-span-full md:col-span-1 rounded border border-gray-400 p-3">
+			<div className="col-span-full md:col-span-1 block">
 				<Statistics data={data} />
 			</div>
-			<div className="rounded border border-gray-400 p-3 md:flex">
+			<div className="block md:flex">
 				<SummaryChart
 					data={[totalConfirmed, totalDeaths]}
 					title="Tỉ lệ tử vong"
 				/>
 			</div>
-			<div className="rounded border border-gray-400 p-3 md:flex">
+			<div className="block md:flex">
 				<SummaryChart
 					data={[totalConfirmed, totalRecovered]}
 					title="Tỉ lệ hồi phục"

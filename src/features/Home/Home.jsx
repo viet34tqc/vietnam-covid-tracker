@@ -10,7 +10,7 @@ const Home = () => {
 		<main className="container py-8">
 			<Title />
 			<Summary />
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
 				<TotalCasesChart />
 				<DailyCasesChart />
 			</div>

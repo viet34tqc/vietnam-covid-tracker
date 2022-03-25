@@ -4,7 +4,7 @@ import Nav from '../Nav/Nav';
 
 const Header = () => {
 	return (
-		<div className="flex justify-between items-center p-4 shadow-md">
+		<div className="flex justify-between items-center p-4 shadow-md bg-white">
 			<strong>
 				<Link to="/">Vietnam Corona Tracker</Link>
 			</strong>

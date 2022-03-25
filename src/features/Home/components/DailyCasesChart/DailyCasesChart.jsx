@@ -44,7 +44,7 @@ const DailyCasesChart = () => {
 	}, [province]);
 
 	return (
-		<div className="text-center">
+		<div className="block">
 			<h3 className="mb-4 text-center">
 				Số ca hàng ngày tại {PROVINCES[province]}
 			</h3>

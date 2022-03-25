@@ -44,7 +44,7 @@ const TotalCasesChart = () => {
 	}, [province]);
 
 	return (
-		<div>
+		<div className="block">
 			<h3 className="mb-4 text-center">Tổng số ca tại {PROVINCES[province]}</h3>
 			<div className="flex justify-between items-end mb-4">
 				<ProvinceSelect setProvince={setProvince} />
