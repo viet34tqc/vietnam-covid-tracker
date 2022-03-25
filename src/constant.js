@@ -15,13 +15,13 @@ export const COVID_VACCINE_PROVINCE =
 export const COVID_NEWS =
 	'https://gw.vnexpress.net/ar/get_rule_2?category_id=1004765&limit=10&data_select=title,share_url,thumbnail_url,lead,publish_time';
 
-export const provinces = {
+export const PROVINCES = {
 	vn: 'Việt Nam',
 	hanoi: 'Hà Nội',
 	hochiminh: 'TP Hồ Chí Minh',
 };
 
-export const ranges = {
+export const RANGES = {
 	week: 'Tuần',
 	month: 'Tháng',
 	all: 'Tất cả',

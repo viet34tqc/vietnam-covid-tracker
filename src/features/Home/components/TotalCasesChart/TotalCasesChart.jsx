@@ -1,15 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { COVID_CASES_VIETNAM, provinces } from '../../../../constant';
+import ProvinceSelect from '../../../../components/ProvinceSelect/ProvinceSelect';
+import RangeSelect from '../../../../components/RangeSelect/RangeSelect';
+import { COVID_CASES_VIETNAM, PROVINCES } from '../../../../constant';
 import FunctionalChart from './components/FunctionalChart';
-import ProvinceSelectButton from './components/ProvinceSelectButton';
 
-// We need to format because the data from 'vn' is different from the data from 'hn' and 'hcm.
 function formatCaseData(data, province) {
 	// Use item instead of case because `case` is a keyword in JS
 	return data.map(item => {
+		const date = province !== 'vn' ? item.date : item.x;
 		return {
-			date: item.x.slice(8) + '/' + item.x.slice(5, 7) + '/' + item.x.slice(0, 4),
+			// The date format get from zing.vn is yyyy-mm-dd.
+			date: date.slice(8) + '/' + date.slice(5, 7) + '/' + date.slice(0, 4),
 			case: province !== 'vn' ? item.total : item.y,
 		};
 	});
@@ -17,6 +19,8 @@ function formatCaseData(data, province) {
 
 const TotalCasesChart = () => {
 	const [province, setProvince] = useState('vn');
+	console.log('province', province);
+	const [range, setRange] = useState('all');
 	const [totalCases, setTotalCases] = useState([]);
 
 	// Load data to send to Chart
@@ -40,21 +44,14 @@ const TotalCasesChart = () => {
 	}, [province]);
 
 	return (
-		<>
-			<h2>Tổng số ca tại {provinces[province]}</h2>
-			<div className="">
-				{Object.entries(provinces).map(([code, name]) => (
-					<ProvinceSelectButton
-						key={code}
-						province={code}
-						setProvince={setProvince}
-						name={name}
-					/>
-				))}
+		<div>
+			<h3 className="mb-4 text-center">Tổng số ca tại {PROVINCES[province]}</h3>
+			<div className="flex justify-between items-end mb-4">
+				<ProvinceSelect setProvince={setProvince} />
+				<RangeSelect setRange={setRange} />
 			</div>
-
-			<FunctionalChart totalCases={totalCases} />
-		</>
+			<FunctionalChart totalCases={totalCases} range={range} />
+		</div>
 	);
 };
 

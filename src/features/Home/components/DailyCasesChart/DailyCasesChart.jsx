@@ -1,26 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { COVID_CASES_VIETNAM, provinces } from '../../../../constant';
+import ProvinceSelect from '../../../../components/ProvinceSelect/ProvinceSelect';
+import RangeSelect from '../../../../components/RangeSelect/RangeSelect';
+import { COVID_CASES_VIETNAM, PROVINCES } from '../../../../constant';
 import FunctionalChart from '../TotalCasesChart/components/FunctionalChart';
-import ProvinceSelectButton from '../TotalCasesChart/components/ProvinceSelectButton';
 
 // We need to format because the data from 'vn' is different from the data from 'hn' and 'hcm.
 function formatCaseData(data, province) {
 	// Use item instead of case because `case` is a keyword in JS
 	const cases = data.map(item => {
-		if (province !== 'vn') {
-			return {
-				date:
-					item.date.toString().slice(8, 10) +
-					'/' +
-					item.date.toString().slice(5, 7),
-				case: Number(item.daily),
-			};
-		}
+		const date = province !== 'vn' ? item.date : item.x;
 		return {
-			date:
-				item.x.toString().slice(8, 10) + '/' + item.x.toString().slice(5, 7),
-			case: Number(item.y),
+			date: date.slice(8) + '/' + date.slice(5, 7) + '/' + date.slice(0, 4),
+			case: province !== 'vn' ? item.daily : item.y,
 		};
 	});
 	return cases;
@@ -28,6 +20,7 @@ function formatCaseData(data, province) {
 
 const DailyCasesChart = () => {
 	const [province, setProvince] = useState('vn');
+	const [range, setRange] = useState('all');
 	const [totalCases, setTotalCases] = useState([]);
 
 	// Load data to send to Chart
@@ -46,26 +39,22 @@ const DailyCasesChart = () => {
 				setTotalCases(formatCaseData(data, province));
 			} catch (error) {
 				console.log(error);
-			} 
+			}
 		})();
 	}, [province]);
 
 	return (
-		<>
-			<h2>Số ca hàng ngày tại {provinces[province]}</h2>
-			<div className="">
-				{Object.entries(provinces).map(([code, name]) => (
-					<ProvinceSelectButton
-						key={code}
-						province={code}
-						setProvince={setProvince}
-						name={name}
-					/>
-				))}
+		<div className="text-center">
+			<h3 className="mb-4 text-center">
+				Số ca hàng ngày tại {PROVINCES[province]}
+			</h3>
+			<div className="flex justify-between items-end mb-4">
+				<ProvinceSelect setProvince={setProvince} />
+				<RangeSelect setRange={setRange} />
 			</div>
 
-			<FunctionalChart totalCases={totalCases} />
-		</>
+			<FunctionalChart totalCases={totalCases} range={range} />
+		</div>
 	);
 };
 

@@ -12,11 +12,9 @@ import {
 } from 'chart.js';
 import { useEffect, useMemo, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import { COVID_VACCINE_VIETNAM, ranges } from '../../../constant';
-import {
-	formatDataByRange,
-	RangeSelectButton,
-} from '../../Home/components/TotalCasesChart/components/FunctionalChart';
+import RangeSelect from '../../../components/RangeSelect/RangeSelect';
+import { COVID_VACCINE_VIETNAM, RANGES } from '../../../constant';
+import { formatDataByRange } from '../../Home/components/TotalCasesChart/components/FunctionalChart';
 
 ChartJS.register(
 	CategoryScale,
@@ -145,14 +143,7 @@ const VaccineChart = () => {
 	return (
 		<>
 			<Line data={chartData} options={options} />
-			{Object.entries(ranges).map(([key, name]) => (
-				<RangeSelectButton
-					key={key}
-					range={key}
-					setRange={setRange}
-					name={name}
-				/>
-			))}
+			<RangeSelect ranges={RANGES} setRange={setRange} />
 		</>
 	);
 };

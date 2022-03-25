@@ -7,13 +7,15 @@ import TotalCasesChart from './components/TotalCasesChart/TotalCasesChart';
 
 const Home = () => {
 	return (
-		<>
+		<main className="container py-8">
 			<Title />
 			<Summary />
-			<TotalCasesChart />
-			<DailyCasesChart />
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+				<TotalCasesChart />
+				<DailyCasesChart />
+			</div>
 			<ProvinceCases />
-		</>
+		</main>
 	);
 };
 

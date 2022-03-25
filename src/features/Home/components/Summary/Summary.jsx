@@ -29,18 +29,23 @@ const Summary = () => {
 	if (isLoading) return <>Đang xử lý</>;
 	const { totalConfirmed, totalDeaths, totalRecovered } = data;
 	return (
-		<>
-			<h1></h1>
-			<Statistics data={data} />
-			<SummaryChart
-				data={[totalConfirmed, totalDeaths]}
-				title="Tỉ lệ tử vong"
-			/>
-			<SummaryChart
-				data={[totalConfirmed, totalRecovered]}
-				title="Tỉ lệ hồi phục"
-			/>
-		</>
+		<div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:grid-cols-[2fr_1fr_1fr] gap-4 mb-10">
+			<div className="col-span-full md:col-span-1 rounded border border-gray-400 p-3">
+				<Statistics data={data} />
+			</div>
+			<div className="rounded border border-gray-400 p-3 md:flex">
+				<SummaryChart
+					data={[totalConfirmed, totalDeaths]}
+					title="Tỉ lệ tử vong"
+				/>
+			</div>
+			<div className="rounded border border-gray-400 p-3 md:flex">
+				<SummaryChart
+					data={[totalConfirmed, totalRecovered]}
+					title="Tỉ lệ hồi phục"
+				/>
+			</div>
+		</div>
 	);
 };
 

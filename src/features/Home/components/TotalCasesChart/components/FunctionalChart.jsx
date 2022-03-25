@@ -11,7 +11,6 @@ import {
 } from 'chart.js';
 import { useMemo, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import { ranges } from '../../../../../constant';
 
 ChartJS.register(
 	CategoryScale,
@@ -23,14 +22,6 @@ ChartJS.register(
 	Legend,
 	Filler
 );
-
-export const RangeSelectButton = ({ name, range, setRange }) => {
-	return (
-		<button type="button" onClick={() => setRange(range)}>
-			{name}
-		</button>
-	);
-};
 
 export const formatDataByRange = (range, totalCases) => {
 	const length = totalCases.length;
@@ -45,8 +36,7 @@ export const formatDataByRange = (range, totalCases) => {
 	}
 };
 
-const FunctionalChart = ({ totalCases }) => {
-	const [range, setRange] = useState('all'); // This range wont be reset if this component re-render
+const FunctionalChart = ({ totalCases, range }) => {
 	const casesByRange = useMemo(
 		() => formatDataByRange(range, totalCases),
 		[range, totalCases]
@@ -70,6 +60,10 @@ const FunctionalChart = ({ totalCases }) => {
 			x: {
 				ticks: {
 					maxTicksLimit: 8,
+					// For a category axis (xAxis), the val is the index so the lookup via getLabelForValue is needed
+					callback: function (val, index) {
+						return this.getLabelForValue(val).slice(0, 5);
+					},
 				},
 				grid: {
 					display: false,
@@ -77,6 +71,7 @@ const FunctionalChart = ({ totalCases }) => {
 			},
 			y: {
 				ticks: {
+					maxTicksLimit: 6,
 					// This callback will override the default format
 					callback: function (label, index, labels) {
 						if (!label) return 0;
@@ -126,14 +121,6 @@ const FunctionalChart = ({ totalCases }) => {
 	return (
 		<>
 			<Line data={data} options={options} />
-			{Object.entries(ranges).map(([key, name]) => (
-				<RangeSelectButton
-					key={key}
-					range={key}
-					setRange={setRange}
-					name={name}
-				/>
-			))}
 		</>
 	);
 };
