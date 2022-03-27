@@ -7,15 +7,18 @@ import TotalCasesChart from './components/TotalCasesChart/TotalCasesChart';
 
 const Home = () => {
 	return (
-		<main className="container py-8">
-			<Title />
+		<>
+			<Title
+				title="Số liệu Vắc xin tại Việt Nam"
+				subTitle="Đợt dịch lần thứ 4, từ ngày 27/4/2021"
+			/>
 			<Summary />
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
 				<TotalCasesChart />
 				<DailyCasesChart />
 			</div>
 			<ProvinceCases />
-		</main>
+		</>
 	);
 };
 

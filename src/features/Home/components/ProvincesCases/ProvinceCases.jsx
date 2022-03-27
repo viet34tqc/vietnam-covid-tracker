@@ -45,13 +45,13 @@ const ProvinceCases = () => {
 	const firstFour = useMemo(() => {
 		return sortedCases
 			.slice(0, 4)
-			.map((c, index) => <Row index={index} c={c} />);
+			.map((c, index) => <Row key={index} index={index} c={c} />);
 	}, [sortedCases]);
 
 	if (isLoading) return <>Đang xử lý...</>;
 
 	return (
-		<div ref={ref} className="block md:w-[80%] m-auto">
+		<div ref={ref} className="v-block md:w-[80%] m-auto">
 			<h3 className="text-center">Tình hình COVID-19 tại các tỉnh thành</h3>
 			<table className="table-fixed w-full text-[14px] mb-4">
 				<colgroup>
@@ -74,7 +74,9 @@ const ProvinceCases = () => {
 					{isReveal &&
 						sortedCases
 							.slice(4, sortedCases.length)
-							.map((c, index) => <Row index={index + 5} c={c} />)}
+							.map((c, index) => (
+								<Row key={index + 5} index={index + 5} c={c} />
+							))}
 				</tbody>
 			</table>
 

@@ -8,17 +8,17 @@ const Statistics = ({ data }) => {
 			<div className="grid grid-cols-3 gap-4">
 				<div className="text-center">
 					<div className="text-2xl font-bold text-red-400">
-						{totalConfirmed}
+						{totalConfirmed?.toLocaleString()}
 					</div>
 					<div className="text-l font-bold text-gray-600">Tổng số ca</div>
 				</div>
 				<div className="text-center">
-					<div className="text-2xl font-bold text-red-600">{totalDeaths}</div>
+					<div className="text-2xl font-bold text-red-600">{totalDeaths?.toLocaleString()}</div>
 					<div className="text-l font-bold text-gray-600">Số ca tử vong</div>
 				</div>
 				<div className="text-center">
 					<div className="text-2xl font-bold text-green-600">
-						{totalRecovered}
+						{totalRecovered?.toLocaleString()}
 					</div>
 					<div className="text-l font-bold text-gray-600">Số ca hồi phục</div>
 				</div>

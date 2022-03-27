@@ -1,8 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import ProvinceSelect from '../../../../components/ProvinceSelect/ProvinceSelect';
-import RangeSelect from '../../../../components/RangeSelect/RangeSelect';
-import { COVID_CASES_VIETNAM, PROVINCES } from '../../../../constant';
+import Select from '../../../../components/Select/Select';
+import { COVID_CASES_VIETNAM, PROVINCES, RANGES } from '../../../../constant';
 import FunctionalChart from '../TotalCasesChart/components/FunctionalChart';
 
 // We need to format because the data from 'vn' is different from the data from 'hn' and 'hcm.
@@ -44,13 +43,17 @@ const DailyCasesChart = () => {
 	}, [province]);
 
 	return (
-		<div className="block">
+		<div className="v-block">
 			<h3 className="mb-4 text-center">
 				Số ca hàng ngày tại {PROVINCES[province]}
 			</h3>
 			<div className="flex justify-between items-end mb-4">
-				<ProvinceSelect setProvince={setProvince} />
-				<RangeSelect setRange={setRange} />
+				<Select
+					options={PROVINCES}
+					setOption={setProvince}
+					selected={province}
+				/>
+				<Select options={RANGES} setOption={setRange} selected={range} />
 			</div>
 
 			<FunctionalChart totalCases={totalCases} range={range} />

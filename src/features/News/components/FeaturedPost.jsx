@@ -6,13 +6,19 @@ const FeaturedPost = ({ post }) => {
 
 	return (
 		<article>
-			<img src={thumbnail_url} alt={title} />
+			<img
+				className="w-full dark:bg-gray-700 bg-gray-100 dark:bg-gray-700  h-60 md:w-full md:h-80 my-2 object-cover object-center rounded-lg"
+				src={thumbnail_url}
+				alt={title}
+			/>
 			<div>
 				<h3>
 					<a href={url}>{title}</a>
 				</h3>
-                <span>{timeSince(publish_time)}</span>
-				<p>{lead}</p>
+				<div className="text-[14px] text-gray-400 mb-2">
+					{timeSince(publish_time)}
+				</div>
+				<p className="mt-4">{lead}</p>
 			</div>
 		</article>
 	);

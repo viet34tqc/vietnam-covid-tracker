@@ -3,10 +3,12 @@ import MobileNav from '../MobileNav/MobileNav';
 
 const Footer = () => {
 	return (
-		<>
-			<footer>Copyright &copy; {new Date().getFullYear()}</footer>
+		<div className="bg-gray-100 dark:bg-gray-800">
+			<footer className="py-4 text-center container">
+				Copyright &copy; {new Date().getFullYear()} by Viet Nguyen
+			</footer>
 			<MobileNav />
-		</>
+		</div>
 	);
 };
 

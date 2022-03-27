@@ -2,10 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
-	const linkClass = 'text-gray-500 hover:text-gray-700';
-	const activeLinkClass = 'font-bold text-gray-800 hover:text-gray-700';
+	const linkClass = 'text-gray-500 dark:text-white hover:text-gray-700';
+	const activeLinkClass =
+		'font-bold text-gray-800 dark:text-white hover:text-gray-700';
 	return (
-		<nav className="gap-4 hidden md:flex">
+		<nav className="gap-6 hidden md:flex">
 			<NavLink
 				className={({ isActive }) => (isActive ? activeLinkClass : linkClass)}
 				to="/"

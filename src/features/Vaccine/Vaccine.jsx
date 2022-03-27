@@ -9,12 +9,12 @@ const Vaccine = () => {
 	// TwoDosesPercentage
 	// VaccineDistributionTable
 	return (
-		<div>
-			<Title />
+		<>
+			<Title title="Số liệu Vắc xin tại Việt Nam" subTitle="" />
 			<Summary />
 			<VaccineChart />
 			<VaccineTable />
-		</div>
+		</>
 	);
 };
 

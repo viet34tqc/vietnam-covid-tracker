@@ -12,7 +12,7 @@ import {
 } from 'chart.js';
 import { useEffect, useMemo, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import RangeSelect from '../../../components/RangeSelect/RangeSelect';
+import SelectButtons from '../../../components/SelectButtons/SelectButtons';
 import { COVID_VACCINE_VIETNAM, RANGES } from '../../../constant';
 import { formatDataByRange } from '../../Home/components/TotalCasesChart/components/FunctionalChart';
 
@@ -58,7 +58,7 @@ const VaccineChart = () => {
 				borderWidth: 1,
 				fill: {
 					target: 'start',
-					above: '#ff000042',
+					above: '#ff000089',
 				},
 			},
 			{
@@ -79,6 +79,10 @@ const VaccineChart = () => {
 			x: {
 				ticks: {
 					maxTicksLimit: 8,
+					// For a category axis (xAxis), the val is the index so the lookup via getLabelForValue is needed
+					callback: function (val, index) {
+						return this.getLabelForValue(val).slice(0, 5);
+					},
 				},
 				grid: {
 					display: false,
@@ -86,6 +90,7 @@ const VaccineChart = () => {
 			},
 			y: {
 				ticks: {
+					maxTicksLimit: 6,
 					// This callback will override the default format
 					callback: function (label, index, labels) {
 						if (!label) return 0;
@@ -141,10 +146,13 @@ const VaccineChart = () => {
 	}, []);
 
 	return (
-		<>
+		<div className="mb-8 v-block">
+			<h3 className="text-center mb-4">Số lượng người đã tiêm vaccine</h3>
+			<div className="flex gap-3 justify-center mb-4">
+				<SelectButtons options={RANGES} setOption={setRange} selected={range} />
+			</div>
 			<Line data={chartData} options={options} />
-			<RangeSelect ranges={RANGES} setRange={setRange} />
-		</>
+		</div>
 	);
 };
 

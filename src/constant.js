@@ -22,7 +22,7 @@ export const PROVINCES = {
 };
 
 export const RANGES = {
+	all: 'Tất cả',
 	week: 'Tuần',
 	month: 'Tháng',
-	all: 'Tất cả',
 };

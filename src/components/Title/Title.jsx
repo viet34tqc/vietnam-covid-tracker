@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Title = () => {
+const Title = ({title, subTitle}) => {
 	return (
 		<div className="text-center mb-9">
-			<h1 className="font-bold text-[32px]">Số liệu Covid-19 tại Việt Nam</h1>
-			<div className="text-[20px]">Đợt dịch lần thứ 4, từ ngày 27/4/2021</div>
+			<h1 className="font-bold text-[32px]">{title}</h1>
+			<div className="text-[20px]">{subTitle}</div>
 		</div>
 	);
 };

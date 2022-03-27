@@ -1,14 +1,13 @@
-import { RANGES } from '../../constant';
-
-const RangeSelect = ({ setRange }) => {
+const RangeSelect = ({ options, setOption, selected }) => {
 	return (
 		<select
 			className="select"
+			defaultValue={selected}
 			onChange={e => {
-				setRange(e.target.value);
+				setOption(e.target.value);
 			}}
 		>
-			{Object.entries(RANGES).map(([key, name]) => (
+			{Object.entries(options).map(([key, name]) => (
 				<option key={key} value={key}>
 					{name}
 				</option>

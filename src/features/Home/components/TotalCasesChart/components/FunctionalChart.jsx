@@ -49,7 +49,7 @@ const FunctionalChart = ({ totalCases, range }) => {
 				borderWidth: 1,
 				fill: {
 					target: 'start',
-					above: '#ff000042',
+					above: '#ff2727a2',
 				},
 			},
 		],

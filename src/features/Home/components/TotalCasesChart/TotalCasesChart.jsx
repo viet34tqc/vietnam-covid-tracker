@@ -1,8 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import ProvinceSelect from '../../../../components/ProvinceSelect/ProvinceSelect';
-import RangeSelect from '../../../../components/RangeSelect/RangeSelect';
-import { COVID_CASES_VIETNAM, PROVINCES } from '../../../../constant';
+import Select from '../../../../components/Select/Select';
+import { COVID_CASES_VIETNAM, PROVINCES, RANGES } from '../../../../constant';
 import FunctionalChart from './components/FunctionalChart';
 
 function formatCaseData(data, province) {
@@ -19,7 +18,6 @@ function formatCaseData(data, province) {
 
 const TotalCasesChart = () => {
 	const [province, setProvince] = useState('vn');
-	console.log('province', province);
 	const [range, setRange] = useState('all');
 	const [totalCases, setTotalCases] = useState([]);
 
@@ -44,11 +42,19 @@ const TotalCasesChart = () => {
 	}, [province]);
 
 	return (
-		<div className="block">
+		<div className="v-block">
 			<h3 className="mb-4 text-center">Tổng số ca tại {PROVINCES[province]}</h3>
 			<div className="flex justify-between items-end mb-4">
-				<ProvinceSelect setProvince={setProvince} />
-				<RangeSelect setRange={setRange} />
+				<Select
+					options={PROVINCES}
+					setOption={setProvince}
+					selected={province}
+				/>
+				<Select
+					options={RANGES}
+					setOption={setRange}
+					selected={range}
+				/>
 			</div>
 			<FunctionalChart totalCases={totalCases} range={range} />
 		</div>

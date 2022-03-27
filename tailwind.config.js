@@ -1,5 +1,6 @@
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
+	darkMode: 'class',
 	theme: {
 		container: {
 			center: true,
@@ -7,5 +8,5 @@ module.exports = {
 		},
 		extend: {},
 	},
-	plugins: [],
+	plugins: [require('tailwind-scrollbar')],
 };

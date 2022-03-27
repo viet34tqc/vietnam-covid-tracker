@@ -1,9 +1,11 @@
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { useTheme } from '../../../../../../context/ThemeContext';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const SummaryChart = ({ data, title }) => {
+	const { isDarkMode } = useTheme(); // Need this to re-render the chart
 	let percentage = (data[1] / data[0]) * 100;
 	percentage = Number(percentage.toFixed(2));
 	return (
@@ -29,7 +31,7 @@ const SummaryChart = ({ data, title }) => {
 					plugins={[
 						{
 							id: 'text',
-							beforeDraw: function (chart, a, b) {
+							beforeDraw: (chart, a, b) => {
 								var width = chart.width,
 									height = chart.height,
 									ctx = chart.ctx;
@@ -43,6 +45,8 @@ const SummaryChart = ({ data, title }) => {
 									textX = Math.round((width - ctx.measureText(text).width) / 2),
 									textY = height / 2;
 
+								ctx.fillStyle =
+									localStorage.theme === 'dark' ? 'white' : 'black';
 								ctx.fillText(text, textX, textY);
 								ctx.save();
 							},

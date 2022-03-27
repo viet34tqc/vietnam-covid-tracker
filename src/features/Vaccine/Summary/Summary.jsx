@@ -23,74 +23,60 @@ const Summary = () => {
 	}, []);
 	if (!data) return <>Đang lấy dữ liệu</>;
 	return (
-		<>
-			<div>
-				<div>Tổng số người đã tiêm: {data.first.toLocaleString()}</div>
-				<div>Đã tiêm đủ : {data.second.toLocaleString()}</div>
-				<div>Đã tiêm đủ : {data.third.toLocaleString()}</div>
+		<div className="mb-10">
+			<div className="grid gap-8 md:grid-cols-3 md:w-[80%] m-auto mb-8">
+				<div className="v-block text-center">
+					<div>Tổng số người đã tiêm</div>
+					<div className="font-bold text-[32px] text-red-400">
+						{data.first.toLocaleString()}
+					</div>
+				</div>
+				<div className="v-block text-center">
+					<div>Đã tiêm đủ liều</div>
+					<div className="font-bold text-[32px] text-red-400">
+						{data.second.toLocaleString()}
+					</div>
+				</div>
+				<div className="v-block text-center">
+					<div>Đã tiêm mũi 3</div>
+					<div className="font-bold text-[32px] text-gray-400">
+						{data.third.toLocaleString()}
+					</div>
+				</div>
 			</div>
 
-			<p>
-				Ít nhất {(data.first / 1000000).toFixed(2)} triệu người đã nhận được từ
-				một liều vaccine ở Việt Nam. Con số này bao gồm hơn{' '}
-				{(data.second / 1000000).toFixed(2)} triệu người đã được tiêm chủng đầy
-				đủ.
+			<p className="mb-8 m-auto md:w-[60%] text-center">
+				Ít nhất{' '}
+				<span className="text-red-400 font-bold">
+					{(data.first / 1000000).toFixed(2)} triệu
+				</span>{' '}
+				người đã nhận được từ một liều vaccine ở Việt Nam. Con số này bao gồm
+				hơn{' '}
+				<span className="text-gray-400 font-bold">
+					{(data.second / 1000000).toFixed(2)} triệu
+				</span>{' '}
+				người đã được tiêm chủng đầy đủ.
 			</p>
 
-			<div
-				className="bar-wrapper"
-				style={{
-					marginTop: '20px',
-				}}
-			>
-				<div
-					className="bar-chart"
-					style={{
-						position: 'relative',
-						height: '20px',
-						background: '#ccc',
-					}}
-				>
+			<div className="md:w-[60%] m-auto">
+				<div className="relative h-5 bg-gray-300">
 					<div
-						className="bar-progress"
+						className="absolute top-0 left-0 bottom-0 bg-red-400"
 						style={{
-							position: 'absolute',
-							top: 0,
-							left: 0,
-							bottom: 0,
-							background: '#111',
 							width: data.secondRatio.toFixed(2) + '%',
 						}}
 					></div>
 				</div>
-				<div
-					className="bar-note"
-					style={{
-						display: 'flex',
-						justifyContent: 'space-between',
-					}}
-				>
+				<div className="flex justify-between items-center mt-2">
 					<div>
-						<span
-							style={{
-								background: '#111',
-								width: '10px',
-								height: '10px',
-								borderRadius: '50%',
-								display: 'inline-block',
-								marginRight: '8px',
-							}}
-						></span>
+						<span className="bg-red-400 w-[10px] h-[10px] rounded-[50%] inline-block mr-2"></span>
 						Tỷ lệ dân số đã tiêm 2 mũi ({data.secondRatio.toFixed(2) + '%'})
 					</div>
 
-					<p>
-						(*) Tương đương khoảng 150 triệu liều vaccine.
-						<br /> Nguồn: Bộ Y Tế Việt Nam. Cập nhật lúc 18:30 08/03
-					</p>
+					<p>Nguồn: Bộ Y Tế Việt Nam. Cập nhật lúc 18:30 08/03</p>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 

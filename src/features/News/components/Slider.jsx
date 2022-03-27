@@ -4,13 +4,22 @@ import '@splidejs/splide/dist/css/splide.min.css';
 import FeaturedPost from './FeaturedPost';
 const Slider = ({ posts }) => {
 	return (
-		<Splide options={{ pagination: false, lazyLoad: true, rewind: true, type: 'fade' }}>
-			{posts.map(post => (
-				<SplideSlide>
-					<FeaturedPost post={post} />
-				</SplideSlide>
-			))}
-		</Splide>
+		<div className="v-block">
+			<Splide
+				options={{
+					pagination: false,
+					lazyLoad: true,
+					rewind: true,
+					type: 'fade',
+				}}
+			>
+				{posts.map(post => (
+					<SplideSlide>
+						<FeaturedPost post={post} />
+					</SplideSlide>
+				))}
+			</Splide>
+		</div>
 	);
 };
 
