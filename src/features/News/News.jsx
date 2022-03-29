@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
+import Skeleton from '../../components/Skeleton/Skeleton';
 import { usePosts } from '../../context/PostsContext';
 import Post from './components/Post';
 import Slider from './components/Slider';
@@ -10,12 +11,14 @@ const News = () => {
 		document.getElementsByClassName('twitter-embed')[0].appendChild(script);
 	}, []);
 	const { posts, setPage } = usePosts();
+
 	const handleFetch = () => {
 		setPage(prevPage => prevPage + 1);
 	};
 
 	const first4News = useMemo(() => posts.slice(0, 4), [posts]);
 	const normalPosts = posts.slice(5); // The posts below post slider
+
 	return (
 		<div className="grid gap-8 grid-cols-1 md:grid-cols-[3fr_1fr]">
 			<div className="">
