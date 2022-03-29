@@ -8,12 +8,13 @@ import {
 	LineElement,
 	PointElement,
 	Title,
-	Tooltip
+	Tooltip,
 } from 'chart.js';
 import { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { useQuery } from 'react-query';
 import SelectButtons from '../../../components/SelectButtons/SelectButtons';
+import Skeleton from '../../../components/Skeleton/Skeleton';
 import { COVID_VACCINE_VIETNAM, RANGES } from '../../../constant';
 import { formatDataByRange } from '../../Home/components/TotalCasesChart/components/FunctionalChart';
 
@@ -56,7 +57,7 @@ const VaccineChart = () => {
 	});
 
 	if (isLoading) {
-		return <span>Loading...</span>;
+		return <Skeleton />;
 	}
 
 	if (isError) {
@@ -64,7 +65,7 @@ const VaccineChart = () => {
 	}
 
 	const data = formatVaccineData(response.data.data.data);
-	const dataByRange = formatDataByRange(range, data)
+	const dataByRange = formatDataByRange(range, data);
 
 	const chartData = {
 		labels: dataByRange.map(c => c.date),

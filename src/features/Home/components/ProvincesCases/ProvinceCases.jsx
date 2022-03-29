@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { useQuery } from 'react-query';
+import Skeleton from '../../../../components/Skeleton/Skeleton';
 import { COVID_CASES_PROVINCE } from '../../../../constant';
 
 const Row = ({ index, c }) => {
@@ -26,10 +27,12 @@ const ProvinceCases = () => {
 		isError,
 		error,
 		data: response,
-	} = useQuery(['provinceCases'], () => axios.get(COVID_CASES_PROVINCE), {staleTime: 5 * 60 * 1000 });
+	} = useQuery(['provinceCases'], () => axios.get(COVID_CASES_PROVINCE), {
+		staleTime: 5 * 60 * 1000,
+	});
 
 	if (isLoading) {
-		return <span>Loading...</span>;
+		return <Skeleton />;
 	}
 
 	if (isError) {

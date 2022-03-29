@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import Select from '../../../../components/Select/Select';
+import Skeleton from '../../../../components/Skeleton/Skeleton';
 import { COVID_CASES_VIETNAM, PROVINCES, RANGES } from '../../../../constant';
 import FunctionalChart from './components/FunctionalChart';
 
@@ -26,16 +27,20 @@ const TotalCasesChart = () => {
 		isError,
 		error,
 		data: response,
-	} = useQuery(['cases', province], () => {
-		const url =
-			province === 'vn'
-				? COVID_CASES_VIETNAM
-				: `${COVID_CASES_VIETNAM}?loc=${province}`;
-		return axios.get(url);
-	}, {staleTime: 5 * 60 * 1000 });
+	} = useQuery(
+		['cases', province],
+		() => {
+			const url =
+				province === 'vn'
+					? COVID_CASES_VIETNAM
+					: `${COVID_CASES_VIETNAM}?loc=${province}`;
+			return axios.get(url);
+		},
+		{ staleTime: 5 * 60 * 1000 }
+	);
 
 	if (isLoading) {
-		return <span>Loading...</span>;
+		return <Skeleton />;
 	}
 
 	if (isError) {

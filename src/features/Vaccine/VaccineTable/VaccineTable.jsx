@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useQuery } from 'react-query';
+import Skeleton from '../../../components/Skeleton/Skeleton';
 import { COVID_VACCINE_PROVINCE } from '../../../constant';
 
 const VaccineTable = () => {
@@ -14,7 +15,7 @@ const VaccineTable = () => {
 	});
 
 	if (isLoading) {
-		return <span>Loading...</span>;
+		return <Skeleton />;
 	}
 
 	if (isError) {

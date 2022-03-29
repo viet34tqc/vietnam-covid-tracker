@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import Skeleton from '../../../components/Skeleton/Skeleton';
 import { COVID_VACCINE_VIETNAM } from '../../../constant';
 
 const Summary = () => {
@@ -11,7 +12,7 @@ const Summary = () => {
 	} = useQuery(['vaccine'], () => axios.get(COVID_VACCINE_VIETNAM), {staleTime: 5 * 60 * 1000 });
 
 	if (isLoading) {
-		return <span>Loading...</span>;
+		return <Skeleton />;
 	}
 
 	if (isError) {
