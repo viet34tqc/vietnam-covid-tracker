@@ -15,8 +15,8 @@ function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ThemeContextProvider>
-				<PostsContextProvider>
-					<BrowserRouter>
+				<BrowserRouter>
+					<PostsContextProvider>
 						<Header />
 						<main className="container py-8">
 							<Routes>
@@ -47,8 +47,8 @@ function App() {
 							</Routes>
 						</main>
 						<Footer />
-					</BrowserRouter>
-				</PostsContextProvider>
+					</PostsContextProvider>
+				</BrowserRouter>
 			</ThemeContextProvider>
 		</QueryClientProvider>
 	);
