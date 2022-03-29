@@ -11,7 +11,7 @@ const Post = ({ post }) => {
 				<img
 					src={thumbnail_url}
 					alt={title}
-					className="rounded-md w-full object-cover object-center h-full absolute top-0 left-0 "
+					className="bg-gray-100 dark:bg-gray-700 rounded-md w-full object-cover object-center h-full absolute top-0 left-0 "
 				/>
 				<div className="pb-[100%]"></div>
 			</div>

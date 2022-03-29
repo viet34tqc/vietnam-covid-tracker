@@ -1,17 +1,27 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
 import { COVID_VACCINE_PROVINCE } from '../../../constant';
 
 const VaccineTable = () => {
-	const [data, setData] = useState([]);
-	useEffect(() => {
-		(async function () {
-			const response = await axios.get(COVID_VACCINE_PROVINCE);
-			const data = response.data.data;
-			setData(data);
-		})();
-	}, []);
-	if (!data.length) return <>Đang xử lý</>;
+	const {
+		isLoading,
+		isError,
+		error,
+		data: response,
+	} = useQuery(['vaccineProvince'], () => axios.get(COVID_VACCINE_PROVINCE), {
+		staleTime: 5 * 60 * 1000,
+	});
+
+	if (isLoading) {
+		return <span>Loading...</span>;
+	}
+
+	if (isError) {
+		return <span>Error: {error.message}</span>;
+	}
+	const data = response.data.data;
+
 	return (
 		<div className="v-block md:w-[80%] m-auto">
 			<h3 className="text-center mb-4">

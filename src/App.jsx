@@ -1,48 +1,56 @@
 import { lazy, Suspense } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import PostsContextProvider from './context/PostsContext';
 import ThemeContextProvider from './context/ThemeContext';
 const Home = lazy(() => import('./features/Home/Home'));
 const News = lazy(() => import('./features/News/News'));
 const Vaccine = lazy(() => import('./features/Vaccine/Vaccine'));
 
+const queryClient = new QueryClient();
+
 function App() {
 	return (
-		<ThemeContextProvider>
-			<BrowserRouter>
-				<Header />
-				<main className="container py-8">
-					<Routes>
-						<Route
-							path="/"
-							element={
-								<Suspense fallback={<>...</>}>
-									<Home />
-								</Suspense>
-							}
-						/>
-						<Route
-							path="/vaccine"
-							element={
-								<Suspense fallback={<>...</>}>
-									<Vaccine />
-								</Suspense>
-							}
-						/>
-						<Route
-							path="/news"
-							element={
-								<Suspense fallback={<>...</>}>
-									<News />
-								</Suspense>
-							}
-						/>
-					</Routes>
-				</main>
-				<Footer />
-			</BrowserRouter>
-		</ThemeContextProvider>
+		<QueryClientProvider client={queryClient}>
+			<ThemeContextProvider>
+				<PostsContextProvider>
+					<BrowserRouter>
+						<Header />
+						<main className="container py-8">
+							<Routes>
+								<Route
+									path="/"
+									element={
+										<Suspense fallback={<>...</>}>
+											<Home />
+										</Suspense>
+									}
+								/>
+								<Route
+									path="/vaccine"
+									element={
+										<Suspense fallback={<>...</>}>
+											<Vaccine />
+										</Suspense>
+									}
+								/>
+								<Route
+									path="/news"
+									element={
+										<Suspense fallback={<>...</>}>
+											<News />
+										</Suspense>
+									}
+								/>
+							</Routes>
+						</main>
+						<Footer />
+					</BrowserRouter>
+				</PostsContextProvider>
+			</ThemeContextProvider>
+		</QueryClientProvider>
 	);
 }
 

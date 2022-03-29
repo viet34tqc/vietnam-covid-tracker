@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useQuery } from 'react-query';
 import { COVID_CASES_PROVINCE } from '../../../../constant';
 
 const Row = ({ index, c }) => {
@@ -16,39 +17,29 @@ const Row = ({ index, c }) => {
 };
 
 const ProvinceCases = () => {
-	const [provincesCases, setProvincesCases] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
 	const [isReveal, setIsReveal] = useState(false);
 
 	const ref = useRef(null);
 
-	useEffect(() => {
-		(async function () {
-			try {
-				setIsLoading(true);
-				const response = await axios.get(COVID_CASES_PROVINCE);
-				const data = response.data.data.cases;
-				setProvincesCases(data);
-			} catch (error) {
-				console.log(error);
-			} finally {
-				setIsLoading(false);
-			}
-		})();
-	}, []);
+	const {
+		isLoading,
+		isError,
+		error,
+		data: response,
+	} = useQuery(['provinceCases'], () => axios.get(COVID_CASES_PROVINCE), {staleTime: 5 * 60 * 1000 });
 
-	const sortedCases = useMemo(
-		() => provincesCases.sort((a, b) => b.y - a.y),
-		[provincesCases]
-	);
+	if (isLoading) {
+		return <span>Loading...</span>;
+	}
 
-	const firstFour = useMemo(() => {
-		return sortedCases
-			.slice(0, 4)
-			.map((c, index) => <Row key={index} index={index} c={c} />);
-	}, [sortedCases]);
-
-	if (isLoading) return <>Đang xử lý...</>;
+	if (isError) {
+		return <span>Error: {error.message}</span>;
+	}
+	const provincesCases = response.data.data.cases;
+	const sortedCases = provincesCases.sort((a, b) => b.y - a.y);
+	const firstFour = sortedCases
+		.slice(0, 4)
+		.map((c, index) => <Row key={index} index={index} c={c} />);
 
 	return (
 		<div ref={ref} className="v-block md:w-[80%] m-auto">

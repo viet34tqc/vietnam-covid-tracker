@@ -1,23 +1,13 @@
-import axios from 'axios';
-import React, { useEffect, useMemo, useState } from 'react';
-import { COVID_NEWS } from '../../constant';
+import React, { useMemo } from 'react';
+import { usePosts } from '../../context/PostsContext';
 import Post from './components/Post';
 import Slider from './components/Slider';
 
 const News = () => {
-	const [posts, setPosts] = useState([]);
-	const [page, setPage] = useState(1);
-
-	useEffect(() => {
-		(async function () {
-			const response = await axios.get(COVID_NEWS + `&page=${page}`);
-			const data = response.data.data[1004765].data; // 1004765 is the category_id
-			setPosts(prevPosts => [...prevPosts, ...data]);
-		})();
-	}, [page]);
+	const { posts, setPage } = usePosts();
 
 	const handleFetch = () => {
-		setPage(page + 1);
+		setPage(prevPage => prevPage + 1);
 	};
 
 	const first4News = useMemo(() => posts.slice(0, 4), [posts]);

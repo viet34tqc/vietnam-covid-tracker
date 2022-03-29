@@ -14,7 +14,7 @@ const Slider = ({ posts }) => {
 				}}
 			>
 				{posts.map(post => (
-					<SplideSlide>
+					<SplideSlide key={post.title}>
 						<FeaturedPost post={post} />
 					</SplideSlide>
 				))}

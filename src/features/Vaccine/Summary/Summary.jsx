@@ -1,27 +1,32 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { COVID_VACCINE_VIETNAM } from '../../../constant';
 
 const Summary = () => {
-	const [data, setData] = useState(null);
-	useEffect(() => {
-		(async function () {
-			try {
-				const response = await axios(COVID_VACCINE_VIETNAM);
-				const data = response.data.data.data;
-				const lastElement = data[data.length - 1];
-				setData({
-					first: Number(lastElement['1Dose']),
-					second: Number(lastElement['2Dose']),
-					third: Number(lastElement['3Dose']),
-					secondRatio: response.data.data.secondRatio,
-				});
-			} catch (error) {
-				console.log(error);
-			}
-		})();
-	}, []);
-	if (!data) return <>Đang lấy dữ liệu</>;
+	const {
+		isLoading,
+		isError,
+		error,
+		data: response,
+	} = useQuery(['vaccine'], () => axios.get(COVID_VACCINE_VIETNAM), {staleTime: 5 * 60 * 1000 });
+
+	if (isLoading) {
+		return <span>Loading...</span>;
+	}
+
+	if (isError) {
+		return <span>Error: {error.message}</span>;
+	}
+
+	const responseData = response.data.data.data;
+	const lastElement = responseData[responseData.length - 1];
+	const data = {
+		first: Number(lastElement['1Dose']),
+		second: Number(lastElement['2Dose']),
+		third: Number(lastElement['3Dose']),
+		secondRatio: response.data.data.secondRatio,
+	};
+
 	return (
 		<div className="mb-10">
 			<div className="grid gap-8 md:grid-cols-3 md:w-[80%] m-auto mb-8">

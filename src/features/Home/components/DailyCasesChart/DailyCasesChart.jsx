@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import Select from '../../../../components/Select/Select';
 import { COVID_CASES_VIETNAM, PROVINCES, RANGES } from '../../../../constant';
 import FunctionalChart from '../TotalCasesChart/components/FunctionalChart';
@@ -20,27 +21,33 @@ function formatCaseData(data, province) {
 const DailyCasesChart = () => {
 	const [province, setProvince] = useState('vn');
 	const [range, setRange] = useState('all');
-	const [totalCases, setTotalCases] = useState([]);
 
-	// Load data to send to Chart
-	useEffect(() => {
-		(async function () {
-			try {
-				const url =
-					province === 'vn'
-						? `${COVID_CASES_VIETNAM}`
-						: `${COVID_CASES_VIETNAM}?loc=${province}`;
-				const response = await axios.get(url);
-				const data =
-					province === 'vn'
-						? response.data.data.vnSeason4Daily.cases
-						: response.data.data.data;
-				setTotalCases(formatCaseData(data, province));
-			} catch (error) {
-				console.log(error);
-			}
-		})();
-	}, [province]);
+	const {
+		isLoading,
+		isError,
+		error,
+		data: response,
+	} = useQuery(['cases', province], () => {
+		const url =
+			province === 'vn'
+				? COVID_CASES_VIETNAM
+				: `${COVID_CASES_VIETNAM}?loc=${province}`;
+		return axios.get(url);
+	}, {staleTime: 5 * 60 * 1000 });
+
+	if (isLoading) {
+		return <span>Loading...</span>;
+	}
+
+	if (isError) {
+		return <span>Error: {error.message}</span>;
+	}
+
+	const data =
+		province === 'vn'
+			? response.data.data.vnSeason4Daily.cases
+			: response.data.data.data;
+	const totalCases = formatCaseData(data, province);
 
 	return (
 		<div className="v-block">

@@ -8,10 +8,11 @@ import {
 	LineElement,
 	PointElement,
 	Title,
-	Tooltip,
+	Tooltip
 } from 'chart.js';
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Line } from 'react-chartjs-2';
+import { useQuery } from 'react-query';
 import SelectButtons from '../../../components/SelectButtons/SelectButtons';
 import { COVID_VACCINE_VIETNAM, RANGES } from '../../../constant';
 import { formatDataByRange } from '../../Home/components/TotalCasesChart/components/FunctionalChart';
@@ -43,12 +44,28 @@ const formatVaccineData = data => {
 };
 
 const VaccineChart = () => {
-	const [data, setData] = useState([]);
 	const [range, setRange] = useState('all'); // This range wont be reset if this component re-render
-	const dataByRange = useMemo(
-		() => formatDataByRange(range, data),
-		[range, data]
-	);
+
+	const {
+		isLoading,
+		isError,
+		error,
+		data: response,
+	} = useQuery(['vaccine'], () => axios.get(COVID_VACCINE_VIETNAM), {
+		staleTime: 5 * 60 * 1000,
+	});
+
+	if (isLoading) {
+		return <span>Loading...</span>;
+	}
+
+	if (isError) {
+		return <span>Error: {error.message}</span>;
+	}
+
+	const data = formatVaccineData(response.data.data.data);
+	const dataByRange = formatDataByRange(range, data)
+
 	const chartData = {
 		labels: dataByRange.map(c => c.date),
 		datasets: [
@@ -132,18 +149,6 @@ const VaccineChart = () => {
 			},
 		},
 	};
-
-	useEffect(() => {
-		(async function () {
-			try {
-				const response = await axios(COVID_VACCINE_VIETNAM);
-				const data = response.data.data.data;
-				setData(formatVaccineData(data));
-			} catch (error) {
-				console.log(error);
-			}
-		})();
-	}, []);
 
 	return (
 		<div className="mb-8 v-block">

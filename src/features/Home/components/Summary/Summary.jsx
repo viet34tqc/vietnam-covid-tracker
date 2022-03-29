@@ -1,37 +1,31 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { SUMMARY_DATA_API } from '../../../../constant';
 import Statistics from './components/Statistics/Statistics';
 import SummaryChart from './components/SummaryChart/SummaryChart';
 
 const Summary = () => {
-	const [data, setData] = useState({});
-	const [isLoading, setIsLoading] = useState(false);
-	useEffect(() => {
-		(async () => {
-			try {
-				setIsLoading(true);
-				const response = await axios.get(SUMMARY_DATA_API);
-				const { totalConfirmed, totalDeaths, totalRecovered } =
-					response.data[0];
-				setData({
-					totalConfirmed,
-					totalDeaths,
-					totalRecovered,
-				});
-			} catch (error) {
-				console.log('error', error);
-			} finally {
-				setIsLoading(false);
-			}
-		})();
-	}, []);
-	if (isLoading) return <>Đang xử lý</>;
-	const { totalConfirmed, totalDeaths, totalRecovered } = data;
+	const {
+		isLoading,
+		isError,
+		error,
+		data: response,
+	} = useQuery('summary', () => axios.get(SUMMARY_DATA_API), {staleTime: 5 * 60 * 1000 }); // The duration until a query transitions from fresh to stale. As long as the query is fresh, data will always be read from the cache only - no network request will happen. For more infomation: https://react-query.tanstack.com/guides/caching
+
+	if (isLoading) {
+		return <span>Loading...</span>;
+	}
+
+	if (isError) {
+		return <span>Error: {error.message}</span>;
+	}
+
+	const { totalConfirmed, totalDeaths, totalRecovered } = response.data[0];
+
 	return (
 		<div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:grid-cols-[2fr_1fr_1fr] gap-4 mb-10">
 			<div className="col-span-full md:col-span-1 v-block">
-				<Statistics data={data} />
+				<Statistics data={{ totalConfirmed, totalDeaths, totalRecovered }} />
 			</div>
 			<div className="v-block md:flex">
 				<SummaryChart

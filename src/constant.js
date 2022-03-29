@@ -1,9 +1,5 @@
 export const SUMMARY_DATA_API =
 	'https://api.coronatracker.com/v3/stats/worldometer/country?countryCode=VN';
-export const COVID_CASES_HCMC =
-	'https://api.zingnews.vn/public/v2/corona/getChart?loc=hochiminh';
-export const COVID_CASES_HANOI =
-	'https://api.zingnews.vn/public/v2/corona/getChart?loc=hanoi';
 export const COVID_CASES_VIETNAM =
 	'https://api.zingnews.vn/public/v2/corona/getChart';
 export const COVID_CASES_PROVINCE =
