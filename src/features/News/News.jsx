@@ -25,7 +25,7 @@ const News = () => {
 				{first4News.length > 0 && <Slider posts={first4News} />}
 				{normalPosts.length > 0 && (
 					<div className="v-block">
-						<h3 className="text-lg md:text-2xl font-bold bg-gray-100 text-center mb-8 p-2 md:p-4 rounded-md">
+						<h3 className="text-lg md:text-2xl font-bold bg-gray-100 dark:bg-gray-600 text-center mb-8 p-2 md:p-4 rounded-md">
 							Tin mới nhất
 						</h3>
 						{normalPosts.map(post => (

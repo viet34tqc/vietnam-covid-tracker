@@ -11,7 +11,7 @@ const Post = ({ post }) => {
 			animate="enter"
 			exit="exit"
 			href={url}
-			className="p-4 hover:bg-gray-200 transition-all grid gap-4 items-start grid-cols-[40%_1fr] md:grid-cols-[15%_1fr] mb-2"
+			className="p-4 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all grid gap-4 items-start grid-cols-[40%_1fr] md:grid-cols-[15%_1fr] mb-2"
 		>
 			<div className="relative">
 				<img
