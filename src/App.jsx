@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import Skeleton from './components/Skeleton/Skeleton';
 import PostsContextProvider from './context/PostsContext';
 import ThemeContextProvider from './context/ThemeContext';
 const Home = lazy(() => import('./features/Home/Home'));
@@ -23,7 +24,7 @@ function App() {
 								<Route
 									path="/"
 									element={
-										<Suspense fallback={<>...</>}>
+										<Suspense fallback={<Skeleton />}>
 											<Home />
 										</Suspense>
 									}
@@ -31,7 +32,7 @@ function App() {
 								<Route
 									path="/vaccine"
 									element={
-										<Suspense fallback={<>...</>}>
+										<Suspense fallback={<Skeleton />}>
 											<Vaccine />
 										</Suspense>
 									}
@@ -39,7 +40,7 @@ function App() {
 								<Route
 									path="/news"
 									element={
-										<Suspense fallback={<>...</>}>
+										<Suspense fallback={<Skeleton />}>
 											<News />
 										</Suspense>
 									}

@@ -22,3 +22,18 @@ export const RANGES = {
 	week: 'Tuần',
 	month: 'Tháng',
 };
+
+export const MOTION_VARIANTS = {
+	hidden: { opacity: 0, x: -100, y: 0 },
+	enter: {
+		opacity: 1,
+		x: 0,
+		y: 0,
+		transition: { duration: 0.3 },
+	},
+	exit: {
+		y: 0,
+		opacity: 0.4,
+		transition: { duration: 0.3 },
+	},
+};

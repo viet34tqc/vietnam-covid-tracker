@@ -1,9 +1,15 @@
+import { motion } from 'framer-motion';
+import { MOTION_VARIANTS } from '../../../constant';
 import { timeSince } from '../../../utils';
 
 const Post = ({ post }) => {
 	const { title, lead, publish_time, share_url: url, thumbnail_url } = post;
 	return (
-		<a
+		<motion.a
+			variants={MOTION_VARIANTS}
+			initial="hidden"
+			animate="enter"
+			exit="exit"
 			href={url}
 			className="p-4 hover:bg-gray-200 transition-all grid gap-4 items-start grid-cols-[40%_1fr] md:grid-cols-[15%_1fr] mb-2"
 		>
@@ -22,7 +28,7 @@ const Post = ({ post }) => {
 				</div>
 				<p className="hidden md:block">{lead}</p>
 			</div>
-		</a>
+		</motion.a>
 	);
 };
 
