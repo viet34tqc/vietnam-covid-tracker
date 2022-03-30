@@ -5,11 +5,13 @@
 - React Router DOM v6
 - TailwindCSS
 - Framer Motion
-
-## Features
+- Axios
+- React Chart JS
+- React Icons
 
 ## What you will learn
 
 - Routing using React Router DOM v6
+- Using React Query to cache the fetching data
 - Using Chart to display data
-- Using Framer Motion for loading skeleton
+- Using Basic Framer Motion when loading page
