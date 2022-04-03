@@ -9,7 +9,9 @@ const Summary = () => {
 		isError,
 		error,
 		data: response,
-	} = useQuery(['vaccine'], () => axios.get(COVID_VACCINE_VIETNAM), {staleTime: 5 * 60 * 1000 });
+	} = useQuery(['vaccine'], () => axios.get(COVID_VACCINE_VIETNAM), {
+		staleTime: 5 * 60 * 1000,
+	});
 
 	if (isLoading) {
 		return <Skeleton />;
@@ -30,7 +32,7 @@ const Summary = () => {
 
 	return (
 		<div className="mb-10">
-			<div className="grid gap-8 md:grid-cols-3 md:w-[80%] m-auto mb-8">
+			<div className="grid gap-8 md:grid-cols-3 md:w-[90%] m-auto mb-8">
 				<div className="v-block text-center">
 					<div>Tổng số người đã tiêm</div>
 					<div className="font-bold text-[32px] text-red-400">
